@@ -196,6 +196,14 @@ func flattenServerJSON(serverID int64, v any) (map[string]any, error) {
 				flat[key] = val
 			}
 		}
+		sockets, hasSockets := live["sockets"]
+		cores, hasCores := live["coresPerSocket"]
+		if _, exists := flat["cpu_topology"]; !exists && hasSockets && hasCores && sockets != nil && cores != nil {
+			flat["cpu_topology"] = map[string]any{
+				"socket_count":           sockets,
+				"cores_per_socket_count": cores,
+			}
+		}
 	}
 
 	return flat, nil

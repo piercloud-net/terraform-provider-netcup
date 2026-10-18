@@ -190,7 +190,7 @@ func jsonBodyOrEmpty(body string) ([]byte, error) {
 func requiredArgForAction(action string) (string, bool) {
 	switch action {
 	case "snapshot_revert", "snapshot_export", "snapshot_delete":
-		return "snapshot_name", true
+		return argSnapshotName, true
 	case "disk_format":
 		return "disk_name", true
 	case "firewall_reapply", "firewall_restore":
@@ -200,13 +200,15 @@ func requiredArgForAction(action string) (string, bool) {
 }
 
 func actionPath(spec actionSpec, serverID int64, action string, args map[string]string) (string, error) {
-	path := fmt.Sprintf(spec.path, serverID)
+	values := []any{serverID}
 	if argName, required := requiredArgForAction(action); required {
-		if _, ok := args[argName]; !ok {
-			return "", fmt.Errorf("action %q requires argument %q", action, argName)
+		value := args[argName]
+		if value == "" {
+			return "", fmt.Errorf("action %q requires a non-empty argument %q", action, argName)
 		}
-		path = fmt.Sprintf(path, args[argName])
+		values = append(values, url.PathEscape(value))
 	}
+	path := fmt.Sprintf(spec.path, values...)
 
 	query := url.Values{}
 	if spec.queryBuilder != nil {

@@ -1,7 +1,8 @@
 package provider
 
 const (
-	methodDelete = "DELETE"
+	methodDelete    = "DELETE"
+	argSnapshotName = "snapshot_name"
 )
 
 const (

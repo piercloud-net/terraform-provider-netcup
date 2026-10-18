@@ -152,7 +152,7 @@ func (m *scpServerMock) handleGet(w http.ResponseWriter, r *http.Request) {
 		"bootorder":          m.bootOrder,
 		"osOptimization":     m.osOpt,
 		"keyboardLayout":     m.keyboard,
-		"cpuTopology":        map[string]any{"socketCount": m.socketCount, "coresPerSocketCount": m.coresPerSock},
+		"serverLiveInfo":     map[string]any{"sockets": m.socketCount, "coresPerSocket": m.coresPerSock},
 		"disabled":           false,
 		"rescueSystemActive": false,
 		"snapshotAllowed":    true,
