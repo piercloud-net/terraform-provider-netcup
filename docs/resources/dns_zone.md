@@ -3,12 +3,12 @@
 page_title: "netcup_dns_zone Resource - terraform-provider-netcup"
 subcategory: ""
 description: |-
-  Manages DNS zone settings for an existing netcup domain.
+  Manages DNS zone settings for an existing netcup domain. Uses the legacy CCP DNS API; CloudDNS domains are not supported.
 ---
 
 # netcup_dns_zone (Resource)
 
-Manages DNS zone settings for an existing netcup domain.
+Manages DNS zone settings for an existing netcup domain. Uses the legacy CCP DNS API; CloudDNS domains are not supported.
 
 ## Example Usage
 

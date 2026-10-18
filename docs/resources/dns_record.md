@@ -3,12 +3,12 @@
 page_title: "netcup_dns_record Resource - terraform-provider-netcup"
 subcategory: ""
 description: |-
-  Manages a single DNS record for a domain hosted at netcup.
+  Manages a single DNS record for a domain hosted at netcup. Uses the legacy CCP DNS API; CloudDNS domains are not supported.
 ---
 
 # netcup_dns_record (Resource)
 
-Manages a single DNS record for a domain hosted at netcup.
+Manages a single DNS record for a domain hosted at netcup. Uses the legacy CCP DNS API; CloudDNS domains are not supported.
 
 ## Example Usage
 

@@ -53,7 +53,7 @@ func (d *DNSRecordsDataSource) Metadata(ctx context.Context, req datasource.Meta
 
 func (d *DNSRecordsDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Reads all DNS records for a netcup DNS zone.",
+		MarkdownDescription: "Reads all DNS records for a netcup DNS zone. Uses the legacy CCP DNS API; CloudDNS domains are not supported.",
 		Attributes: map[string]schema.Attribute{
 			"domain_name": schema.StringAttribute{
 				MarkdownDescription: "Domain name of the DNS zone.",
@@ -106,6 +106,11 @@ func (d *DNSRecordsDataSource) Configure(ctx context.Context, req datasource.Con
 			"Unexpected Data Source Configure Type",
 			fmt.Sprintf("Expected *providerData, got: %T", req.ProviderData),
 		)
+		return
+	}
+
+	if data.CCP == nil {
+		resp.Diagnostics.AddError("Missing CCP Credentials", missingCCPCredentialsDetail)
 		return
 	}
 

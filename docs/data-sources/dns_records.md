@@ -3,12 +3,12 @@
 page_title: "netcup_dns_records Data Source - terraform-provider-netcup"
 subcategory: ""
 description: |-
-  Reads all DNS records for a netcup DNS zone.
+  Reads all DNS records for a netcup DNS zone. Uses the legacy CCP DNS API; CloudDNS domains are not supported.
 ---
 
 # netcup_dns_records (Data Source)
 
-Reads all DNS records for a netcup DNS zone.
+Reads all DNS records for a netcup DNS zone. Uses the legacy CCP DNS API; CloudDNS domains are not supported.
 
 ## Example Usage
 
