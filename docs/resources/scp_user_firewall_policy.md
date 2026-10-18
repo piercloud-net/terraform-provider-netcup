@@ -3,12 +3,12 @@
 page_title: "netcup_scp_user_firewall_policy Resource - terraform-provider-netcup"
 subcategory: ""
 description: |-
-  Manages a firewall policy in the netcup SCP account.
+  Manages a firewall policy in the netcup SCP account. Rules are evaluated in list order; sources and destinations within each rule are unordered sets.
 ---
 
 # netcup_scp_user_firewall_policy (Resource)
 
-Manages a firewall policy in the netcup SCP account.
+Manages a firewall policy in the netcup SCP account. Rules are evaluated in list order; sources and destinations within each rule are unordered sets.
 
 ## Example Usage
 
@@ -68,10 +68,10 @@ Optional:
 
 - `description` (String) Rule description.
 - `destination_ports` (String) Destination port or range.
-- `destinations` (List of String) Destination CIDRs/addresses.
+- `destinations` (Set of String) Destination CIDRs/addresses. Unordered, matching the SCP API.
 - `number_of_effective_rules` (Number) Number of effective rules generated from this rule.
 - `source_ports` (String) Source port or range.
-- `sources` (List of String) Source CIDRs/addresses.
+- `sources` (Set of String) Source CIDRs/addresses. Unordered, matching the SCP API.
 
 ## Import
 
