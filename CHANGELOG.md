@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.0.0](https://github.com/rixlhq/terraform-provider-netcup/compare/v1.4.0...v2.0.0) (2026-10-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* The deprecated legacy CCP DNS API (DomainWebservice JSON API) and its resources/data sources (`netcup_dns_record`, `netcup_dns_zone`, `netcup_dns_records`) have been completely removed. Provider configuration attributes `api_key`, `api_password`, `customer_number`, and `endpoint` are removed. DNS is now managed exclusively via the modern netcup CloudDNS REST API (`clouddns_api_key`). Added composite import support (`domain_id/name/type/rdata`) for `netcup_clouddns_record`.
+
+#### How to Migrate from Legacy DNS to CloudDNS:
+1. **Activate CloudDNS in CCP**: In the Netcup Customer Control Panel under Domains > DNS / CloudDNS, activate CloudDNS (existing records are preserved).
+2. **Generate CloudDNS API Key**: Generate a 64-character bearer token under CCP > Master Data > API > API Keys, and configure `clouddns_api_key` (or set `NETCUP_CLOUDDNS_API_KEY`).
+3. **Update Terraform Resources**: Replace `netcup_dns_record` with `netcup_clouddns_record`.
+4. **Import Without Downtime**: Use composite syntax (`domain_id/name/type/rdata`):
+   ```shell
+   terraform state rm netcup_dns_record.example
+   terraform import netcup_clouddns_record.example '12345/www/A/192.0.2.1'
+   ```
+   Or use declarative `import` blocks in Terraform >= 1.5. See the full [Migration Guide](docs/guides/migrating-to-clouddns.md) for details.
+
+### Features
+
+* remove legacy CCP DNS API and add CloudDNS migration support ([#39](https://github.com/rixlhq/terraform-provider-netcup/issues/39)) ([94fc0a1](https://github.com/rixlhq/terraform-provider-netcup/commit/94fc0a1ce6c1eff9c87b3d5b72c27f69ce3c7a3d))
+
 ## [1.4.0](https://github.com/rixlhq/terraform-provider-netcup/compare/v1.3.1...v1.4.0) (2026-10-18)
 
 
