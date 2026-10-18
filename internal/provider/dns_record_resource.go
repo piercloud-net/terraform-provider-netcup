@@ -97,6 +97,11 @@ func (r *DNSRecordResource) Configure(ctx context.Context, req resource.Configur
 		return
 	}
 
+	if data.CCP == nil {
+		resp.Diagnostics.AddError("Missing CCP Credentials", missingCCPCredentialsDetail)
+		return
+	}
+
 	r.client = data.CCP
 	r.scp = data.SCP
 }

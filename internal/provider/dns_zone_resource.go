@@ -94,6 +94,11 @@ func (r *DNSZoneResource) Configure(ctx context.Context, req resource.ConfigureR
 		return
 	}
 
+	if data.CCP == nil {
+		resp.Diagnostics.AddError("Missing CCP Credentials", missingCCPCredentialsDetail)
+		return
+	}
+
 	r.client = data.CCP
 	r.scp = data.SCP
 }
