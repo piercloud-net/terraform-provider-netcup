@@ -3,7 +3,7 @@
 A Terraform provider for managing resources at [netcup](https://www.netcup.com).
 It supports both the **Customer Control Panel (CCP) DNS API** and the **Server Control Panel (SCP) REST API**.
 
-- DNS records and zones are managed through the CCP JSON API.
+- DNS records and zones are managed through the legacy CCP JSON API.
 - Servers, interfaces, firewalls, snapshots, ISOs, tasks, users, and other SCP resources are
   exposed as resources and data sources using the SCP OpenAPI specification.
 
@@ -75,6 +75,17 @@ resource "netcup_scp_rdns" "example" {
   rdns       = "host.example.com"
 }
 ```
+
+## DNS API compatibility
+
+The `netcup_dns_*` resources and data sources use netcup's **legacy CCP DNS
+API** with `api_key`, `api_password`, and `customer_number`. SCP access and
+refresh tokens authorize server operations and cannot be used for DNS requests.
+
+Domains using **CloudDNS** require the separate [netcup API](https://www.netcup.com/en/helpcenter/documentation/general/netcup-api),
+which this provider does not yet implement. CloudDNS API keys cannot be used
+as legacy CCP credentials. Check the domain's DNS or CloudDNS tab in the CCP
+before configuring the provider.
 
 ## CCP DNS Resources
 

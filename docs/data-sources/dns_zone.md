@@ -3,12 +3,12 @@
 page_title: "netcup_dns_zone Data Source - terraform-provider-netcup"
 subcategory: ""
 description: |-
-  Reads DNS zone settings for a netcup domain.
+  Reads DNS zone settings for a netcup domain. Uses the legacy CCP DNS API; CloudDNS domains are not supported.
 ---
 
 # netcup_dns_zone (Data Source)
 
-Reads DNS zone settings for a netcup domain.
+Reads DNS zone settings for a netcup domain. Uses the legacy CCP DNS API; CloudDNS domains are not supported.
 
 
 

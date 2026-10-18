@@ -44,7 +44,7 @@ func (r *DNSRecordResource) Metadata(ctx context.Context, req resource.MetadataR
 
 func (r *DNSRecordResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Manages a single DNS record for a domain hosted at netcup.",
+		MarkdownDescription: "Manages a single DNS record for a domain hosted at netcup. Uses the legacy CCP DNS API; CloudDNS domains are not supported.",
 		Attributes: map[string]schema.Attribute{
 			"zone": schema.StringAttribute{
 				MarkdownDescription: "Domain name of the DNS zone (e.g. example.com).",
