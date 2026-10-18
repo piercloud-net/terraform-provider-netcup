@@ -50,7 +50,7 @@ func (p *NetcupProvider) Metadata(ctx context.Context, req provider.MetadataRequ
 
 func (p *NetcupProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Terraform provider for managing netcup CCP DNS and SCP resources. Supports provider-defined functions and ephemeral resources when using protocol version 6.0.",
+		MarkdownDescription: "Terraform provider for managing netcup infrastructure via the CCP DNS API (DomainWebservice JSON API) and the SCP REST API (Server Control Panel OpenAPI). Supports DNS records, DNS zones, virtual servers, reverse DNS (rDNS IPv4/IPv6), network interfaces, firewall policies, snapshots, failover IPs, VLANs, custom images, ISOs, provider-defined functions, and ephemeral tokens under Terraform Plugin Framework protocol version 6.",
 		Attributes: map[string]schema.Attribute{
 			"api_key": schema.StringAttribute{
 				MarkdownDescription: "Netcup API key generated in the Customer Control Panel for the CCP/DNS API. Can be set via the `NETCUP_API_KEY` environment variable.",

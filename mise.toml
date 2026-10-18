@@ -44,7 +44,7 @@ run = "golangci-lint run ./..."
 
 [tasks.docs]
 description = "Generate Terraform Registry docs from the SCP OpenAPI spec"
-run = ["python3 tools/openapi_descriptions.py", "tfplugindocs generate"]
+run = ["python3 tools/openapi_descriptions.py", "tfplugindocs generate --provider-name netcup"]
 
 [tasks.default]
 description = "Default local development check"

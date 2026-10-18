@@ -1,17 +1,34 @@
 # Terraform Provider for Netcup
 
-A Terraform provider for managing resources at [netcup](https://www.netcup.com).
-It supports both the **Customer Control Panel (CCP) DNS API** and the **Server Control Panel (SCP) REST API**.
+[![Terraform Registry](https://img.shields.io/badge/Terraform%20Registry-rixlhq%2Fnetcup-844FBA?logo=terraform&logoColor=white)](https://registry.terraform.io/providers/rixlhq/netcup/latest)
+[![Release](https://img.shields.io/github/v/release/rixlhq/terraform-provider-netcup?sort=semver)](https://github.com/rixlhq/terraform-provider-netcup/releases)
+[![CI](https://github.com/rixlhq/terraform-provider-netcup/actions/workflows/ci.yml/badge.svg)](https://github.com/rixlhq/terraform-provider-netcup/actions/workflows/ci.yml)
+[![License: MPL-2.0](https://img.shields.io/github/license/rixlhq/terraform-provider-netcup)](LICENSE)
 
-- DNS records and zones are managed through the legacy CCP JSON API.
-- Servers, interfaces, firewalls, snapshots, ISOs, tasks, users, and other SCP resources are
-  exposed as resources and data sources using the SCP OpenAPI specification.
+A [Terraform](https://www.terraform.io) provider for managing infrastructure at [netcup](https://www.netcup.com) via official netcup APIs:
+
+- **Customer Control Panel (CCP) DNS API / DomainWebservice** (JSON API) — manage DNS zones and individual DNS records.
+- **Server Control Panel (SCP) REST API** (OpenAPI / OAuth 2.0) — manage virtual servers (VPS / Root Server), reverse DNS (rDNS IPv4 & IPv6), network interfaces, VLANs, failover IPs, firewall policies, snapshots, custom disk images, and ISOs.
+
+Built with the modern **Terraform Plugin Framework** (protocol version 6), supporting ephemeral token exchange (`netcup_scp_access_token`) and provider functions (`provider::netcup::ip_version`).
 
 ## Requirements
 
 - [Terraform](https://developer.hashicorp.com/terraform/downloads) >= 1.0 (>= 1.10 for ephemeral resources, >= 1.8 for provider-defined functions)
 - [Go](https://go.dev/doc/install) >= 1.26
 - [mise](https://mise.jdx.dev/) (recommended for running tasks and installing tools)
+
+## Overview of Resources & Data Sources
+
+| Category | API | Resources | Data Sources |
+| :--- | :--- | :--- | :--- |
+| **DNS** | CCP DNS API | `netcup_dns_record`, `netcup_dns_zone` | `netcup_dns_records`, `netcup_dns_zone` |
+| **Servers** | SCP REST API | `netcup_scp_server`, `netcup_scp_server_action` | `netcup_scp_server`, `netcup_scp_servers`, `netcup_scp_server_metrics`, `netcup_scp_server_logs` |
+| **Networking & rDNS** | SCP REST API | `netcup_scp_rdns`, `netcup_scp_server_interface`, `netcup_scp_failover_ip_v4`, `netcup_scp_failover_ip_v6`, `netcup_scp_user_vlan` | `netcup_scp_rdns_ipv4`, `netcup_scp_rdns_ipv6`, `netcup_scp_server_interface`, `netcup_scp_server_interfaces`, `netcup_scp_user_failoverips_v4`, `netcup_scp_user_failoverips_v6`, `netcup_scp_user_vlan`, `netcup_scp_user_vlans`, `netcup_scp_vlan` |
+| **Firewall** | SCP REST API | `netcup_scp_user_firewall_policy`, `netcup_scp_server_interface_firewall` | `netcup_scp_user_firewall_policy`, `netcup_scp_user_firewall_policies` |
+| **Storage & Snapshots** | SCP REST API | `netcup_scp_server_snapshot` | `netcup_scp_server_snapshot`, `netcup_scp_server_snapshots`, `netcup_scp_server_disk`, `netcup_scp_server_disks`, `netcup_scp_server_disk_supported_drivers`, `netcup_scp_server_imageflavours`, `netcup_scp_server_iso`, `netcup_scp_server_isoimages`, `netcup_scp_user_image`, `netcup_scp_user_image_part`, `netcup_scp_user_images`, `netcup_scp_user_iso`, `netcup_scp_user_iso_part`, `netcup_scp_user_isos` |
+| **User & Access** | SCP REST API | `netcup_scp_user`, `netcup_scp_user_ssh_key`, `netcup_scp_access_token` (ephemeral) | `netcup_scp_user`, `netcup_scp_user_ssh_keys`, `netcup_scp_user_logs` |
+| **Tasks & Status** | SCP REST API | `netcup_scp_task_action` | `netcup_scp_task`, `netcup_scp_tasks`, `netcup_scp_maintenance`, `netcup_scp_server_guest_agent`, `netcup_scp_server_guest_agent_status`, `netcup_scp_server_gpu_driver`, `netcup_scp_server_rescuesystem` |
 
 ## Provider Configuration
 
