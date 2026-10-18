@@ -65,9 +65,17 @@ func taskResultBytes(r json.RawMessage) []byte {
 }
 
 func parseTaskInfo(body []byte) (taskInfo, bool) {
-	var info taskInfo
-	if err := json.Unmarshal(body, &info); err != nil {
+	var response struct {
+		taskInfo
+
+		Nested *taskInfo `json:"taskInfo"`
+	}
+	if err := json.Unmarshal(body, &response); err != nil {
 		return taskInfo{}, false
+	}
+	info := response.taskInfo
+	if response.Nested != nil {
+		info = *response.Nested
 	}
 	return info, info.UUID != ""
 }

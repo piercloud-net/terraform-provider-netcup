@@ -263,7 +263,7 @@ resource "netcup_scp_server_action" "snapshot" {
 
   body = jsonencode({
     name   = "before-upgrade"
-    online = true
+    onlineSnapshot = true
   })
 }
 
@@ -314,7 +314,7 @@ Manages server snapshots.
 resource "netcup_scp_server_snapshot" "example" {
   server_id = 12345
   name      = "before-upgrade"
-  online    = true
+  online_snapshot = true
 }
 ```
 
@@ -326,7 +326,7 @@ Manages reverse DNS entries for IPv4 and IPv6.
 resource "netcup_scp_rdns" "example" {
   ip_version = "ipv4"
   ip         = "192.0.2.1"
-  hostname   = "srv.example.com"
+  rdns       = "srv.example.com"
 }
 ```
 

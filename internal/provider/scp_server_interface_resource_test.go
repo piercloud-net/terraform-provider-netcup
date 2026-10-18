@@ -85,7 +85,7 @@ func (m *scpServerInterfaceMock) handle(w http.ResponseWriter, r *http.Request) 
 		m.handleCreate(w, r)
 	case http.MethodGet:
 		m.handleGet(w, r, mac)
-	case http.MethodPatch:
+	case http.MethodPut:
 		m.handleUpdate(w, r, mac)
 	case http.MethodDelete:
 		m.handleDelete(w, r)

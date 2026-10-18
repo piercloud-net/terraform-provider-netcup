@@ -224,7 +224,7 @@ func (r *ScpServerInterfaceResource) Update(ctx context.Context, req resource.Up
 	}
 
 	path := fmt.Sprintf("/api/v1/servers/%d/interfaces/%s", state.ServerID.ValueInt64(), state.Mac.ValueString())
-	if _, err := r.client.Patch(ctx, path, body); err != nil {
+	if _, err := r.client.Put(ctx, path, body); err != nil {
 		resp.Diagnostics.AddError("SCP API Error", err.Error())
 		return
 	}
